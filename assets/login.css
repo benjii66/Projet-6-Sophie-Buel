@@ -1,0 +1,30 @@
+#loginPage{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 30%;
+	margin: auto;
+	text-align: center;
+}
+
+.invalid{
+	display: none;
+}
+
+.redBorder{
+	border-radius: 5px;
+	border: solid 2px red;
+}
+
+.redWarning{
+	color:red;
+	text-align:center
+}
+
+.errorMessage{
+	color: red;
+}
+
+.forgotPwd{
+	color:black;
+}

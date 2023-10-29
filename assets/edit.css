@@ -1,0 +1,288 @@
+.noedit{
+    display:none;
+}
+
+.edit{
+    display: block;    
+}
+
+.flex{
+    display: flex;
+}
+
+.logout:hover {
+    color: #B1663C;
+}
+
+#edit{
+    background-color: black;
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height:40px;
+}
+
+
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+#introduction a{
+	position: absolute;
+	margin-top: 1%;
+	margin-left: 4%;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 6em 0;
+}
+
+#portfolio h2{
+    margin: 0 1.5em;
+}
+
+/* MODAL */
+#modal button{
+    cursor: pointer;
+}
+
+.modal{
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-wrapper{
+    background-color: white;
+    width:600px;
+    height: 700px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.gallery-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 660px;
+}
+
+#close, #deleteGallery{
+    border: 0;
+    background-color: white;
+}
+
+#close{
+    font-size: 20px;
+    position: relative;
+    left:540px;
+}
+
+#galleryEdit{
+	width: 80%;
+	margin: auto;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 13px 10px;
+    overflow: scroll;
+}
+
+#galleryEdit img {
+	width: 100%;
+}
+
+.card{
+    position: relative;
+    min-height: 133px;
+}
+
+.btnIcon{
+    align-items: center;
+    position: absolute;
+    bottom: 109px;
+    left: 62px;
+    padding: 2px 4px 1px 4px;
+    background-color: black;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+}
+
+#divider{
+    height: 1px;
+    width: 500px;
+    background-color:#B3B3B3;
+    margin: 20px auto;
+}
+
+#modal .container{
+    flex-direction: column;
+    justify-content: space-between;
+    height: 12%;
+    margin:10px; 
+}
+
+#addWork{
+    background-color: #1D6154;
+    border-radius:60px;
+    height: 36px;
+    width: 237px;
+    color: white;
+    font-family: "Syne";
+    font-weight: 700;
+    font-size: 14px;
+    border: 0;
+}
+
+#deleteGallery{
+    color: red;
+    font-size: 14px;
+    font-family: "Syne";
+}
+
+/* MODAL ADD PICTURES */
+
+#back{
+    border: 0;
+    background-color: transparent;
+}
+
+#dividerform{
+    height: 1px;
+    width: 100%;
+    background-color:#B3B3B3;
+    margin: 40px auto;
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 600px;
+    margin: auto;
+}
+
+#inputPhoto{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label{
+    font-family: "Work Sans";
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#labelPhoto{
+    background-color: #CBD6DC;
+    border-radius: 50px;
+    width: 90%;
+    cursor: pointer;
+}
+
+#labelPhoto p{
+    color: #306685;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    top: 5px;
+}
+
+#photo{
+    visibility: hidden;
+}
+
+#photoFile{
+    max-width: 165px;
+    margin: auto;
+}
+
+#title, select{
+    height: 50px;
+    box-shadow: 1px 1px 4px #c5c4c4;
+    padding-left: 10px;
+}
+
+#titleLabel, #categoryLabel{
+    margin: 30px 0 10px 0;
+}
+
+#select-container{
+    position: relative;
+    width: 100%;
+}
+
+select{
+    appearance: none; 
+    cursor: pointer;
+    width: 100%;
+}
+
+#dropdown{
+    position: absolute;
+    bottom: 20px;
+    width: 1em;
+    right: 30px;
+   
+}
+
+#searchPicture{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8F1F6;
+    height: 225px;
+    margin-top: 20px;
+}
+
+#searchPicture .fa-image{
+    color: #B9C5CC;
+    margin-bottom: 30px;
+}
+
+#searchPicture p{
+    color: #444444;
+    margin-top: 10px;
+}
+
+#validate{
+    font-family: "Syne";
+    font-size: 14px;
+    font-weight: 700;
+    width: 240px;
+    height: 40px;
+    border-radius: 60px;
+    border: none;
+    color: #FFF;
+    background-color: #A7A7A7;
+    margin: auto;
+}
+
+#validate:hover{
+    background-color: #1D6154;
+}
