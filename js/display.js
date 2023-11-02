@@ -32,13 +32,11 @@ export const displayPhoto = (infos) => {
     const div = document.createElement("div");
     const button = document.createElement("button");
     const img = document.createElement("img");
-    const p = document.createElement("p");
     const icon = document.createElement("img");
   
     img.src = infos[i].imageUrl;
     img.alt = infos[i].title;
     img.crossOrigin = "anonymous";
-    p.innerText = "éditer";
     icon.src = "./assets/icons/delete.png";
     icon.crossOrigin = "anonymous";
     icon.className = "deleteBtn";
@@ -49,7 +47,6 @@ export const displayPhoto = (infos) => {
     button.appendChild(icon)
     div.appendChild(img);
     div.appendChild(button)
-    div.appendChild(p);
     galleryEdit.appendChild(div);
   }
 }

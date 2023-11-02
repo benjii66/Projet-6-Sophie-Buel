@@ -1,7 +1,7 @@
 import { getWorks, apiDeleteWork, postWork } from "./api.js";
 import { displayInfos, displayPhoto } from "./display.js";
 
-const galleryEdit = document.getElementById("galleryEdit")
+const gallery= document.getElementById("galleryEdit")
 const close = document.getElementById("close");
 const addWork = document.getElementById("addWork");
 const back = document.getElementById("back");
