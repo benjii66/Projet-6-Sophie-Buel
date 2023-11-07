@@ -22,6 +22,9 @@ let photo;
 let title = "";
 let category = "0";
 let body;
+let isFormValid = false;
+let isTitleValid = true;
+let isCategoryValid = true;
 
 // display project in the gallery
 const displayModal = async () => {
@@ -31,13 +34,21 @@ const displayModal = async () => {
 
 //delete a project
 const deleteWork = async (id) =>  {
-    
-    apiDeleteWork(id)    
-    const infos = await getWorks();
-    displayPhoto(infos);
-    displayInfos(infos)
+    try {
+        apiDeleteWork(id);           
+        const infos = await getWorks();
+        displayPhoto(infos);
+        displayInfos(infos)        
+        initDeleteBtn();
+    }catch(error){
+        if(error instanceof SyntaxError)
+        {
+            console.log("Projet supprimé avec succès !");
+        }else{
 
-    initDeleteBtn();
+            console.error("erreur lors de la suppression", error);
+        }
+    }
 }
 
 //for each projects, add the delete button, and the event and delete
@@ -85,13 +96,12 @@ export const backModal = () => {
     categoryInput.classList.add("borderInput");
     categoryInput.classList.remove("redBorder");
     searchPicture.classList.remove("redBorder");
-    photoFile ===undefined;
-    photo ===undefined;
-    inputPhoto ===undefined;
-    category==="0";
-    title ==="";
-    titleInput ==="";
+
     form.reset();
+
+    photo = undefined;
+    title = "";
+    category = "0";
 }
 
 //close the modal
@@ -100,108 +110,110 @@ export const closeModal = () => {
     modal.setAttribute("aria-hidden", "true");
     modal.setAttribute("aria-modal", "false");
     modal = null;      
-    titleInput == "";
-    categoryInput == "0";
-    photoInput === undefined;
+    
     backModal();
 }
   
 //valid the adding of a new project
 const validateForm = () => {
-    let hasError = false;
-  
+    let errors = {};
+
     titleInput.classList.add("borderInput");
     categoryInput.classList.add("borderInput");
     titleInput.classList.remove("redBorder");
     categoryInput.classList.remove("redBorder");
-    searchPicture.classList.remove("redBorder"); 
+    searchPicture.classList.remove("redBorder");
 
-    if(photo === undefined){
-        
-        titleInput == "";
-        title == "";
-        categoryInput == "0";
-        category== "0";
-        photoInput === undefined;
-        photo === undefined;
-        hasError = true;
-        searchPicture.classList.add("redBorder"); 
+    if (photo === undefined) {
+        errors.photo = true;
+        searchPicture.classList.add("redBorder");
+        photo = undefined;
+        photoInput.value ="";
     }
 
-    if(title === ""){
-        categoryInput == "0";
-        category == "0";
-        photoInput === undefined; 
-        photo === undefined;  
-        hasError = true;
+    if (title === "") {
+        errors.title = true;
         titleInput.classList.remove("borderInput");
-        titleInput.classList.add("redBorder");   
+        titleInput.classList.add("redBorder");
+        
+        title = "";
+        titleInput.value = ""; 
     }
 
-    if(category === "0"){
-        titleInput == "";
-        title == "";
-        categoryInput == "0";
-        photoInput === undefined;
-        photo === undefined;
-        hasError = true;
+    if (category === "0") {
+        errors.category = true;
         categoryInput.classList.remove("borderInput");
-        categoryInput.classList.add("redBorder");    
+        categoryInput.classList.add("redBorder");
+        
+        category = "0"; 
+        categoryInput.value = "0"; 
     }
-  
-        return hasError
-}
+
+    if (!errors.photo && !errors.title && !errors.category) {
+        isFormValid = true;
+    } else {
+        isFormValid = false;
+
+        form.reset();
+        photoInput.value = "";
+        titleInput.value = "";
+        categoryInput.value = "0";
+
+        title = "";
+        category = "0";
+        photo = undefined;
+        photoFile.classList.add("noedit");
+            inputPhoto.classList.add("flex");
+    }
+
+    return errors;
+};
 
 
 //verification of the form
 const handleForm = async () => {
 
-    const hasError = validateForm();
+    validateForm();
+    if (!isFormValid) {
+        form.reset();
+        photoInput.value = ""; 
+        titleInput.value = ""; 
+        categoryInput.value = "0";   
+        
+        if (!photoInput.value || !titleInput.value || categoryInput.value === "0") {
+            isFormValid = false;
+        }
+
+        return;
+    }
 
     body = new FormData();
-    //add the new datas
     body.append("image", photo);
     body.append("title", title);
     body.append("category", category); 
 
-    if(hasError){     
-        titleInput.value == "";
-        title.value == "";
-
-        categoryInput.value == "0";
-        category.value == "0";
-
-        photoInput.value === undefined;
-        photo === undefined;
-        searchPicture.value = undefined;
-
-        body = new FormData();
-    return;
-    }
-    await postWork(body).then(function(response) {
-        if(response.status === 200)
-        {
-            form.reset();
-            console.log("youpi");
-        }else {
-            form.reset();
-            console.error("toi pas communiquer api")
-        }
-    }).catch(function(error){
-        console.error("toi avoir erreur AJAX", error);
-    });
+    await postWork(body);
+    console.log("Données dans le body :", body);
 
     const infos = await getWorks();
     
     displayInfos(infos)
-    displayPhoto(infos)
-   
+    displayPhoto(infos)   
     closeModal(); 
+
+    
+    photo = undefined;
+    title = "";
+    category = "0";
+
+   
+    form.reset();
+    photoInput.value = "";
+    titleInput.value = ""; 
+    categoryInput.value = "0"; 
         
 }
 
-//Idea *lightbulb* !! 
-//create an anchor and reload the site with the window to the anchor and we go to the new "project" directly
 
 const initEventListeners = () => {
     //add new project 
@@ -245,13 +257,13 @@ const initEventListeners = () => {
 
     // add the new project 
     form.addEventListener( "submit", (event) => {
-        event.preventDefault()   
+        event.preventDefault();
         console.log(titleInput.value + " " + categoryInput.value + " " + photoInput.value); 
         handleForm()   
-        titleInput == "";
-        categoryInput == "0";
-        photoInput === undefined;  //LA OUI LA OUIIIIIII
         form.reset();
+        photoInput.value = ""; 
+        titleInput.value = ""; 
+        categoryInput.value = "0";  
     })
 
 }
