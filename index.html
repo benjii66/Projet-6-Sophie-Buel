@@ -72,8 +72,7 @@
 
 							<label for="title" id="titleLabel">Titre</label>
 							<input type="text" id="title" class="borderInput">
-							<label for="category" id="categoryLabel">Catégorie</label>
-								<!--dynamique aussi là-->		
+							<label for="category" id="categoryLabel">Catégorie</label>	
 							<div id="select-container">
 								<select name="category" id="category" class="borderInput">
 								<option value="0"></option>
@@ -94,20 +93,18 @@
 					</div>
 				</div>
 			</aside>
-        </div>
-		<!--dynamique aussi là-->		
-		<div id="filters">
+        </div>	
+		<div id="filters" class ="edit">
 			<button id="all" class="filter">Tous</button>
 			<button id="objects" class="filter">Objets</button>
 			<button id="apartments" class="filter">Appartements</button>
-			<button id="hotels" class="filter">Hotels & restaurants</button>
+			<button id="hotels" class="filter-active">Hotels & restaurants</button>
 		</div>
 		<div id="gallery"></div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
-		<!-- avoid 405 error-->
 		<form action="" method="post">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name">
@@ -115,7 +112,6 @@
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<!-- button -->
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>

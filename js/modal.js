@@ -21,11 +21,11 @@ let modal = null;
 let photo;
 let title = "";
 let category = "0";
+let body;
 
 // display project in the gallery
 const displayModal = async () => {
-    const infos = await getWorks();
-  
+    const infos = await getWorks();  
     displayPhoto(infos);
 }
 
@@ -81,11 +81,17 @@ export const backModal = () => {
     inputPhoto.classList.remove("noedit");
     inputPhoto.classList.add("flex");
     titleInput.classList.add("borderInput");
-    categoryInput.classList.add("borderInput");
     titleInput.classList.remove("redBorder");
+    categoryInput.classList.add("borderInput");
     categoryInput.classList.remove("redBorder");
     searchPicture.classList.remove("redBorder");
-    form.reset()
+    photoFile ===undefined;
+    photo ===undefined;
+    inputPhoto ===undefined;
+    category==="0";
+    title ==="";
+    titleInput ==="";
+    form.reset();
 }
 
 //close the modal
@@ -93,7 +99,10 @@ export const closeModal = () => {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     modal.setAttribute("aria-modal", "false");
-    modal = null;
+    modal = null;      
+    titleInput == "";
+    categoryInput == "0";
+    photoInput === undefined;
     backModal();
 }
   
@@ -105,24 +114,42 @@ const validateForm = () => {
     categoryInput.classList.add("borderInput");
     titleInput.classList.remove("redBorder");
     categoryInput.classList.remove("redBorder");
-    searchPicture.classList.remove("redBorder");
-  
+    searchPicture.classList.remove("redBorder"); 
+
     if(photo === undefined){
-      hasError = true
-      searchPicture.classList.add("redBorder");
+        
+        titleInput == "";
+        title == "";
+        categoryInput == "0";
+        category== "0";
+        photoInput === undefined;
+        photo === undefined;
+        hasError = true;
+        searchPicture.classList.add("redBorder"); 
     }
+
     if(title === ""){
-      hasError = true
-      titleInput.classList.remove("borderInput");
-      titleInput.classList.add("redBorder");
+        categoryInput == "0";
+        category == "0";
+        photoInput === undefined; 
+        photo === undefined;  
+        hasError = true;
+        titleInput.classList.remove("borderInput");
+        titleInput.classList.add("redBorder");   
     }
+
     if(category === "0"){
-      hasError = true
-      categoryInput.classList.remove("borderInput");
-      categoryInput.classList.add("redBorder");
+        titleInput == "";
+        title == "";
+        categoryInput == "0";
+        photoInput === undefined;
+        photo === undefined;
+        hasError = true;
+        categoryInput.classList.remove("borderInput");
+        categoryInput.classList.add("redBorder");    
     }
   
-    return hasError
+        return hasError
 }
 
 
@@ -130,25 +157,47 @@ const validateForm = () => {
 const handleForm = async () => {
 
     const hasError = validateForm();
-    
-    if(hasError){
-    return;
-    }
 
-    const body = new FormData();
+    body = new FormData();
     //add the new datas
     body.append("image", photo);
     body.append("title", title);
     body.append("category", category); 
-    
-    await postWork(body);
-        
-    const infos = await getWorks();
 
+    if(hasError){     
+        titleInput.value == "";
+        title.value == "";
+
+        categoryInput.value == "0";
+        category.value == "0";
+
+        photoInput.value === undefined;
+        photo === undefined;
+        searchPicture.value = undefined;
+
+        body = new FormData();
+    return;
+    }
+    await postWork(body).then(function(response) {
+        if(response.status === 200)
+        {
+            form.reset();
+            console.log("youpi");
+        }else {
+            form.reset();
+            console.error("toi pas communiquer api")
+        }
+    }).catch(function(error){
+        console.error("toi avoir erreur AJAX", error);
+    });
+
+    const infos = await getWorks();
+    
     displayInfos(infos)
     displayPhoto(infos)
-    backModal();
-    closeModal();     
+   
+    closeModal(); 
+        
 }
 
 //Idea *lightbulb* !! 
@@ -173,11 +222,9 @@ const initEventListeners = () => {
         
         if(photo){
             const reader = new FileReader();
-
             reader.onload = function(event) {
             photoFile.src = event.target.result
             }
-
             reader.readAsDataURL(photo);
             photoFile.classList.remove("noedit");
             inputPhoto.classList.add("noedit");
@@ -198,9 +245,15 @@ const initEventListeners = () => {
 
     // add the new project 
     form.addEventListener( "submit", (event) => {
-        event.preventDefault()    
-        handleForm()    
+        event.preventDefault()   
+        console.log(titleInput.value + " " + categoryInput.value + " " + photoInput.value); 
+        handleForm()   
+        titleInput == "";
+        categoryInput == "0";
+        photoInput === undefined;  //LA OUI LA OUIIIIIII
+        form.reset();
     })
+
 }
 
 initEventListeners();

@@ -193,7 +193,21 @@ nav a:visited {
 	border: solid 1px #1D6154;
 	cursor: pointer;
 }
-
+.filter-active {
+	padding: 9px 15px;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	color: #1D6154;
+	border: solid 1px #1D6154;
+	background-color: white;
+	min-width: 100px;
+	color: white;
+	background-color: #1D6154;
+	border: solid 1px #1D6154;
+	cursor: pointer;
+}
 #gallery{
 	width: 100%;
 	display: grid;

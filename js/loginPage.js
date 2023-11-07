@@ -76,8 +76,6 @@ const initEventListeners = () => {
     // get the email
     emailInput.addEventListener("change", (event) => {
         //hello regex my old friend
-        // that one from regexr is probably more advanced /[^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/];
-        //but I understand better than one ! any word capital or not, the @ and again any words
         const regex = /[a-zA-Z0-9_]+@[a-z]+[a-z]\.[a-z]{2,3}/;
         email = event.target.value;
         if(!regex.test(email)){

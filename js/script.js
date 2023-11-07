@@ -11,38 +11,67 @@ const logout = document.getElementById("logoutNav");
 const editBar = document.getElementById("edit");
 const editWorks = document.getElementById("editWorks");
 
+const filter = document.getElementById("filters");
 const filterAll = document.getElementById("all");
 const filterObjects = document.getElementById("objects");
 const filterApartments = document.getElementById("apartments");
 const filterHotels = document.getElementById("hotels");
 
+
+
+
 //all the html behaviour
 const main = async () => {
   const projects = await getWorks();
-
+  filterAll.classList.replace("filter", "filter-active");
+  filterObjects.classList.replace("filter-active", "filter");
+  filterApartments.classList.replace("filter-active", "filter");
+  filterHotels.classList.replace("filter-active", "filter");
   displayInfos(projects);
 
-  //function for the filter ? or new script ?
+
+
+  //filters just have to display the filters category
   filterAll.addEventListener("click", () => {
+    filterAll.classList.replace("filter", "filter-active");
+    filterObjects.classList.replace("filter-active", "filter");
+    filterApartments.classList.replace("filter-active", "filter");
+    filterHotels.classList.replace("filter-active", "filter");
+   
     displayInfos(projects);
+    
   })
 
   filterObjects.addEventListener("click", () => {
     const objectsFilter = projects.filter( projects => {
+      filterAll.classList.replace("filter-active", "filter");
+      filterObjects.classList.replace("filter", "filter-active");
+      filterApartments.classList.replace("filter-active", "filter");
+      filterHotels.classList.replace("filter-active", "filter");
       return projects.categoryId === 1 
     })
+
     displayInfos(objectsFilter);
   })
 
   filterApartments.addEventListener("click", () => {
     const objectsFilter = projects.filter( projects => {
+      filterAll.classList.replace("filter-active", "filter");
+      filterObjects.classList.replace("filter-active", "filter");
+      filterApartments.classList.replace("filter", "filter-active");
+      filterHotels.classList.replace("filter-active", "filter");
       return projects.categoryId === 2
-    })
+    })   
     displayInfos(objectsFilter);
+  
   })
 
   filterHotels.addEventListener("click", () => {
     const objectsFilter = projects.filter( projects => {
+      filterAll.classList.replace("filter-active", "filter");
+      filterObjects.classList.replace("filter-active", "filter");
+      filterApartments.classList.replace("filter-active", "filter");
+      filterHotels.classList.replace("filter", "filter-active");
       return projects.categoryId === 3 
     })
     displayInfos(objectsFilter);
@@ -56,6 +85,7 @@ const main = async () => {
     editBar.classList.remove("noedit");
     editBar.classList.add("flex");
     editWorks.classList.remove("noedit");
+    filter.classList.replace("edit", "noedit");
   }
 }
 
