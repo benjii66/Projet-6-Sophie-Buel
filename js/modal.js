@@ -32,13 +32,18 @@ const displayModal = async () => {
     displayPhoto(infos);
 }
 
+
+deleteGallery.addEventListener("click", () => {
+    deleteAllGallery();
+});
+
 //delete a project
 const deleteWork = async (id) =>  {
     try {
-        apiDeleteWork(id);           
+        await apiDeleteWork(id);           
         const infos = await getWorks();
         displayPhoto(infos);
-        displayInfos(infos)        
+        displayInfos(infos)  
         initDeleteBtn();
     }catch(error){
         if(error instanceof SyntaxError)
@@ -60,6 +65,24 @@ const initDeleteBtn = () => {
             deleteWork(btn.parentNode.id)
         })
     })
+}
+
+const deleteAllGallery = async () => {
+    try {
+        const works = await getWorks();
+
+        for (const work of works) {
+            await apiDeleteWork(work.id);
+        }
+        const infos = await getWorks();
+        displayPhoto(infos);
+        displayInfos(infos);
+        initDeleteBtn();
+        console.log("Tous les projets ont été supprimés avec succès !");
+    } catch (error) {
+        console.error("erreur lors de la suppression de la galerie", error);
+    }
+
 }
 
 // display the modal
